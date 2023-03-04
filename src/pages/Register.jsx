@@ -19,7 +19,7 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/users/register",
+        `${process.env.REACT_APP_BACKEND_URI}/users/register`,
         user
       );
 

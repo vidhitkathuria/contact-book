@@ -13,11 +13,14 @@ const Create = () => {
     setError(null);
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/contact/create",
-        contact, {
-            headers: {
-                Authorization: `Bearer ${JSON.parse(localStorage.getItem("user")).token}`
-            }
+        `${process.env.REACT_APP_BACKEND_URI}/contact/create`,
+        contact,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("user")).token
+            }`,
+          },
         }
       );
       console.log(data);

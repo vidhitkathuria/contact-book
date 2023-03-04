@@ -13,7 +13,10 @@ const Login = () => {
 
   const handleLogin = async () => {
     console.log(user);
-    const resp = await axios.post("http://localhost:5000/users/login", user);
+    const resp = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URI}/users/login`,
+      user
+    );
     setUser(resp.data);
     console.log(resp.data);
     localStorage.setItem("user", JSON.stringify(resp.data));

@@ -5,12 +5,12 @@ const Home = () => {
   const [contacts, setContacts] = useState([]);
   const [editIdx, setEditIdx] = useState(null);
   const [editedContact, setEditedcontact] = useState(null);
-  
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       const { data } = await axios.get(
-        "http://localhost:5000/contact/contacts",
+        `${process.env.REACT_APP_BACKEND_URI}/contact/contacts`,
         {
           headers: {
             Authorization: `Bearer ${
@@ -27,13 +27,16 @@ const Home = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/contact/delete?id=${id}`, {
-        headers: {
-          Authorization: `Bearer ${
-            JSON.parse(localStorage.getItem("user")).token
-          }`,
-        },
-      });
+      await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URI}/contact/delete?id=${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem("user")).token
+            }`,
+          },
+        }
+      );
 
       // deletion done
       // contact can be removed from ui
@@ -47,7 +50,7 @@ const Home = () => {
     try {
       // api call
       await axios.patch(
-        `http://localhost:5000/contact/update?id=${id}`,
+        `${process.env.REACT_APP_BACKEND_URI}/contact/update?id=${id}`,
         {
           name: editedContact.name,
           number: Number(editedContact.number),
