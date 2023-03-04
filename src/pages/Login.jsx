@@ -30,7 +30,7 @@ const Login = () => {
   // }, [user]);
 
   return (
-    <div className="login d-flex align-items-center">
+    <div className="login d-flex align-items-center mt-4">
       <div className="card w-25 mx-auto  p-4">
         <h1 className="text-center text-dark mb-4">Login</h1>
         <form action="" className="">
@@ -49,7 +49,7 @@ const Login = () => {
               Password
             </label>
             <input
-              type="text"
+              type="password"
               className="form-control"
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />

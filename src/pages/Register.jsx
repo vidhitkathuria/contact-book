@@ -31,7 +31,7 @@ const Register = () => {
     }
   };
   return (
-    <div className="signup d-flex align-items-center ">
+    <div className="signup d-flex align-items-center mt-4">
       <div className="card w-25 mx-auto  p-4">
         <h1 className="text-center text-dark mb-4">SignUp</h1>
         <form action="" className="">
