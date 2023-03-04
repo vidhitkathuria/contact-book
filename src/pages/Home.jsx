@@ -22,6 +22,7 @@ const Home = () => {
       setContacts(data);
       console.log(data);
     };
+    
     fetchData();
   }, []);
 
