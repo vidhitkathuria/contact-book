@@ -47,7 +47,9 @@ const Create = () => {
           type="text"
           className="form-control mb-3"
           placeholder="enter contact number"
-          onChange={(e) => setContact({ ...contact, number: e.target.value })}
+          onChange={(e) =>
+            setContact({ ...contact, number: Number(e.target.value) })
+          }
         />
         <button
           className="form-control btn btn-primary w-25 mx-auto"
