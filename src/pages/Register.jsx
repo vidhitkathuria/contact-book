@@ -9,7 +9,7 @@ const Register = () => {
   //   const [username, setUsername] = useState("");
   //   const [password, setPassword] = useState("");
   //   const [email, setEmail] = useState("");
-
+  const [error, setError] = useState(null);
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -24,10 +24,12 @@ const Register = () => {
       );
 
       setUser(data);
+      setError(null);
       localStorage.setItem("user", JSON.stringify(data));
       navigate("/");
     } catch (error) {
       console.log(error);
+      setError(error.response.data.message);
     }
   };
   return (
@@ -86,6 +88,7 @@ const Register = () => {
             >
               Login
             </button>
+            {error && <p>{error}</p>}
           </div>
         </div>
       </div>
