@@ -10,6 +10,7 @@ const Register = () => {
   //   const [password, setPassword] = useState("");
   //   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -17,6 +18,7 @@ const Register = () => {
   });
 
   const handleRegister = async () => {
+    setLoading(true);
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URI}/users/register`,
@@ -31,6 +33,7 @@ const Register = () => {
       console.log(error);
       setError(error.response.data.message);
     }
+    setLoading(false);
   };
   return (
     <div className="signup d-flex align-items-center mt-4">
@@ -75,7 +78,11 @@ const Register = () => {
           </div>
         </form>
         <div className="d-flex justify-content-between">
-          <button onClick={handleRegister} className="btn btn-primary">
+          <button
+            onClick={handleRegister}
+            className="btn btn-primary"
+            disabled={loading}
+          >
             SignUp
           </button>
           <div className="d-flex align-items-center">
@@ -88,9 +95,9 @@ const Register = () => {
             >
               Login
             </button>
-            {error && <p>{error}</p>}
           </div>
         </div>
+        {error && <p className="text-center text-danger">{error}</p>}
       </div>
     </div>
   );
