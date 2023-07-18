@@ -6,20 +6,27 @@ const Create = () => {
   const [contact, setContact] = useState({
     name: "",
     number: "",
+    photo: null,
   });
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     try {
+      const formData = new FormData();
+      formData.append("name", contact.name);
+      formData.append("number", contact.number);
+      formData.append("photo", contact.photo);
+      console.log(contact.photo);
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_URI}/contact/create`,
-        contact,
+        formData,
         {
           headers: {
             Authorization: `Bearer ${
               JSON.parse(localStorage.getItem("user")).token
             }`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
@@ -27,6 +34,7 @@ const Create = () => {
       navigate("/");
     } catch (error) {
       setError(error.response.data.message);
+      console.log("error on uploading");
     }
   };
   return (
@@ -51,6 +59,13 @@ const Create = () => {
             setContact({ ...contact, number: Number(e.target.value) })
           }
         />
+        <input
+          type="file"
+          className="form-control mb-3"
+          accept=".png, .jpg, .jpeg"
+          placeholder="Upload Image"
+          onChange={(e) => setContact({ ...contact, photo: e.target.files[0] })}
+        />
         <button
           className="form-control btn btn-primary w-25 mx-auto"
           type="submit"
@@ -58,7 +73,7 @@ const Create = () => {
           Create
         </button>
       </form>
-      {error && <p>{error}</p>}
+      {error && <p className="text-danger">{error}</p>}
     </div>
   );
 };
