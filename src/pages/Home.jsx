@@ -5,7 +5,7 @@ const Home = () => {
   const [contacts, setContacts] = useState([]);
   const [editIdx, setEditIdx] = useState(null);
   const [editedContact, setEditedcontact] = useState(null);
-
+  const [error, setError] = useState(null);
   const user = localStorage.getItem("user");
 
   const navigate = useNavigate();
@@ -77,6 +77,7 @@ const Home = () => {
       setEditedcontact(null);
     } catch (error) {
       console.log(error);
+      setError(error.response.data.message);
     }
   };
 
@@ -164,6 +165,7 @@ const Home = () => {
                         })
                       }
                     />
+                    {error && <p className="text-danger">{error}</p>}
                   </td>
                 )}
 
